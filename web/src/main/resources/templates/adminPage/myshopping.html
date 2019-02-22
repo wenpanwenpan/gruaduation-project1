@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Dashboard Template for Bootstrap</title>
+  <!-- Bootstrap core CSS -->
+  <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <style type="text/css">
+    /* Chart.js */
+
+    @-webkit-keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      -webkit-animation: chartjs-render-animation 0.001s;
+      animation: chartjs-render-animation 0.001s;
+    }
+
+  </style>
+</head>
+
+<body>
+<!--引入抽取的topbar,使用thymeleaf的语法th:replace="~{模板名::模块名或选择器}"-->
+<div th:replace="~{commons/bar::topbar}"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
+    <div th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <section class="jumbotron text-center">
+          <h1 class="jumbotron-heading">二手商品界面</h1>
+          <p>
+            <a href="https://getbootstrap.com/docs/4.1/examples/album/#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="https://getbootstrap.com/docs/4.1/examples/album/#" class="btn btn-secondary my-2">Secondary action</a>
+          </p>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-4" th:each="commodity:${all}">
+              <div class="card mb-4 shadow-sm">
+
+                <!--使用th标签的src属性拼接-->
+                <span th:if="${commodity.photo != null }">
+                  <img th:src="@{'/images/'+${commodity.photo}}"/>
+                </span>
+                <span th:if="${commodity.photo == null }">
+                  <img th:src="@{/images/nophotos.jpg}"/>
+                </span>
+
+                <div class="card-body">
+                  <p class="card-text" th:text="'商品名称：' + ${commodity.name}"></p>
+                  <p th:text="'商品价格：' + ${commodity.price}"></p>
+                  <p th:text="'商品简介：' + ${commodity.note}"></p>
+                  <p th:text="'商品数量：' + ${commodity.count}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <footer class="text-muted">
+        <div class="container">
+          <p class="float-right">
+            <a href="https://getbootstrap.com/docs/4.1/examples/album/#">Back to top</a>
+          </p>
+          <p>这里是页脚啊！</p>
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+
+      </footer>
+    </main>
+  </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+
+
+</body>
+
+</html>

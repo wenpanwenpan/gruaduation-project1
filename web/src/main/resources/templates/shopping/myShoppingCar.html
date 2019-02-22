@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+	</head>
+
+	<body>
+        <!--引入topbar！！！-->
+        <div th:replace="~{commons/bar::topbar}"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+
+                <!--引入sidebar,并设置一个参数使他高亮显示-->
+                <div th:replace="~{commons/bar::#sidebar(activeUri='myShoppingCar.html')}"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<h2>我的购物车</h2>
+					<div class="table-responsive">
+						<table class="table table-striped table-sm" style="text-align: center">
+							<thead>
+							<tr>
+								<th><input type="checkbox" id="check_all"> 全选</th>
+								<th>#序号</th>
+								<th>商品名称</th>
+								<th>商品价格</th>
+								<th>商品数量</th>
+								<th>商品描述</th>
+								<th style="text-align: center">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							<!--使用thymeleaf来取得map集合中的key和value的方法-->
+							<tr th:each="count,commodity:${allCommotity}">
+								<td><input th:id="${commodity.current.key}" th:name="${cars[commodity.current.key]}" type="checkbox" class="check_item"></td>
+								<td th:text="${commodity.index} + 1"></td>
+								<td th:text="${commodity.current.value.name}"></td>
+								<td th:text="${commodity.current.value.price}"></td>
+								<td th:text="${cars[commodity.current.key]}"></td>
+								<td th:text="${commodity.current.value.note}"></td>
+								<td>
+									<button th:id="removeCommodity"   type="button" class="btn btn-sm btn-outline-secondary removeCommodity">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										移除商品
+									</button>
+									<button th:id="updateCount"   type="button" class="btn btn-sm btn-outline-secondary updateCount">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+										修改数量
+									</button>
+								</td>
+							</tr>
+							<tr th:if="${allCommotity != null}">
+								<td colspan="6" th:text="'总计：' + ${sumCount} + '件商品， ' + '共计： ￥' + ${sumPrice} + '元！'"></td>
+								<td>
+									<a id="orderbtn" href="#">
+									<button class="btn btn-sm btn-outline-secondary">
+										<span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+										结算订单
+									</button>
+									</a>
+								</td>
+
+							</tr>
+							</tbody>
+						</table>
+						<img th:if="${allCommotity == null}" th:src="@{/images/shoppingCarNull.jpg}">
+					</div>
+					
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script>
+			//feather.replace()
+
+			//点击跳转到我的订单，因为两个地方都要用到该方法，所以将它抽取出来
+			function toMyOrder() {
+                var checkboxpid = "||";
+                var commodityCount = "||";
+                //将所有的pid进行拼串
+                $.each($(".check_item:checked"),function (i,item) {
+                    if(checkboxpid == "||"){			//保证拼接后的pid串是  1--3--5这种形式
+                        checkboxpid = item.id;
+                    }else{
+                        checkboxpid = checkboxpid + "--" + item.id;
+                    }
+                });
+                //将所有的购买次数进行拼串
+                $.each($(".check_item:checked"),function (i,item) {
+                    if(commodityCount == "||"){			//保证拼接后的pid串是  1--3--5这种形式
+                        commodityCount = item.name;
+                    }else{
+                        commodityCount = commodityCount + "__" + item.name;
+                    }
+                });
+                window.location.href = "/usr/ajax/toMyOrder/" + checkboxpid + "/" + commodityCount;
+            }
+			
+			$(function () {
+
+			    //去我的订单界面
+			    $("#myOrder").click(function () {
+                    toMyOrder();
+                });
+
+			    //点击后去我的购物车界面
+                $("#orderbtn").click(function () {
+                    toMyOrder();
+                });
+
+                //设置全选
+                $("#check_all").click(function () {
+                    $(".check_item").prop("checked",$(this).prop("checked"));
+                });
+
+                //为check_item绑定点击事件，所以只能用on()方法绑定
+                $(document).on("click",".check_item",function(){
+                    //alert($(".check_item:checked").length);
+                    var flag = $(".check_item:checked").length == $(".check_item").length;
+                    $("#check_all").prop("checked",flag)
+                });
+
+
+
+
+
+
+
+
+
+
+            });
+
+		</script>
+
+	</body>
+
+</html>
