@@ -30,41 +30,42 @@
 
       <div>
         <form class="form-horizontal" action="/usr/sell/addCommodity" enctype="multipart/form-data" method="post">
+          <h3>出售我的二手商品</h3><br>
           <div class="form-group">
-            <label for="commodityName" class="col-sm-3 control-label">商品名称：</label>
+            <label for="commodityName" class="col-sm-3 control-label">商品名称</label>
             <div class="col-sm-9">
               <input type="text" name="name" class="form-control" id="commodityName" placeholder="商品名称">
               <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group">
-            <label for="commodityPrice" class="col-sm-3 control-label">商品价格：</label>
+            <label for="commodityPrice" class="col-sm-3 control-label">商品价格</label>
             <div class="col-sm-9">
-              <input type="text" name="price" class="form-control" id="commodityPrice" placeholder="商品价格">
+              <input type="text" name="price" class="form-control" id="commodityPrice" placeholder="只能为数字哦！eg: 99.9">
               <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group">
-            <label for="commodityNum" class="col-sm-3 control-label">商品数量：</label>
+            <label for="commodityNum" class="col-sm-3 control-label">商品数量</label>
             <div class="col-sm-9">
-              <input type="text" name="count" class="form-control" id="commodityNum" placeholder="商品数量">
+              <input type="text" name="count" class="form-control" id="commodityNum" placeholder="数量只能为整数哦！eg: 1">
               <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group">
-            <label for="commodityNote" class="col-sm-3 control-label">商品描述：</label>
+            <label for="commodityNote" class="col-sm-3 control-label">商品描述</label>
             <div class="col-sm-9">
-              <input type="text" name="note" class="form-control" id="commodityNote" placeholder="商品描述">
+              <input type="text" name="note" class="form-control" id="commodityNote" placeholder="对商品说点描述吧！">
               <span class="help-block"></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="photo">商品图片</label>
-            <input type="file"  id="photo" name="photo">
+            <label>    商品图片：</label>
+            <input type="file"  name="file" id = "file">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="commodity_save_btn">保存</button>
+            <button type="submit" class="btn btn-primary" id="commodity_save_btn">确定出售</button>
           </div>
 
         </form>
