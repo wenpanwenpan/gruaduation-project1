@@ -23,9 +23,12 @@ public class LogoutController {
         if(session != null && session.getAttribute("loginUser") != null){
             session.removeAttribute("loginUser");
         }
+        if(session.getAttribute("allpid") != null){
+            session.removeAttribute("allpid");
+        }
 
         //注销登录后重新定向到二手商品界面
-        return "redirect:/shopping/goshopping";
+        return "redirect:/shopping/goshoppingbypage";
     }
 
     /**
@@ -33,12 +36,19 @@ public class LogoutController {
      * @param session
      */
     @RequestMapping(value = "/usr/ajax/adminLogout" ,method = RequestMethod.GET)
-    public void adminLogout(HttpSession session){
+    public String adminLogout(HttpSession session){
 
         if(session != null && session.getAttribute("adminLoginUser") != null){
             session.removeAttribute("adminLoginUser");
+            if(session.getAttribute("admin") != null){
+                session.removeAttribute("admin");
+            }
         }
+        if(session.getAttribute("allpid") != null){
+            session.removeAttribute("allpid");
+        }
+        //注销登录后重新定向到二手商品界面
+        return "redirect:/shopping/goshoppingbypage";
     }
-
 
 }

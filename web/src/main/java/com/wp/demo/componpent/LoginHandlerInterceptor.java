@@ -18,7 +18,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
         //从session请求域中获取该用户是否已经登录
         Object user = request.getSession().getAttribute("loginUser");
-        if(user == null){
+        Object admin = request.getSession().getAttribute("adminLoginUser");
+        if(user == null && admin == null){
             //该用户未登录
             request.setAttribute("msg","没有权限，请先登录！");
             //进行服务器端跳转

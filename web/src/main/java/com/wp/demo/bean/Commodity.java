@@ -12,8 +12,17 @@ public class Commodity {
     private String note;        //商品介绍
     private Integer count;      //商品数量
     private String photo ;      //商品照片名
-    //private String type;        //商品所属类别
-    //private String authorId;      //商品所有者的ID
+    private String tid;        //商品所属类别id，通过id关联到商品类别表中
+    private String authorId;    //商品所有者的ID，通过此id关联到用户表中
+    private String date;        //商品的上传日期
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getName() {
         return name;
@@ -63,6 +72,22 @@ public class Commodity {
         this.photo = photo;
     }
 
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
     @Override
     public String toString() {
         return "Commodity{" +
@@ -72,6 +97,8 @@ public class Commodity {
                 ", note='" + note + '\'' +
                 ", count=" + count +
                 ", photo='" + photo + '\'' +
+                ", tid='" + tid + '\'' +
+                ", authorId='" + authorId + '\'' +
                 '}';
     }
 }

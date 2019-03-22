@@ -1,5 +1,8 @@
 package com.wp.demo.service;
 
+import com.github.pagehelper.Page;
+import com.wp.demo.bean.Commodity;
+
 import java.util.List;
 
 /**
@@ -17,8 +20,9 @@ public interface IProductService<T,K> {
 
     public List<T> findAll(String keyword) throws Exception;
 
-    public List<T> findAll(String keyword, int intcurrentPage, int lineSize)
-            throws Exception;
+    //返回Page集合，便于分页使用
+    public Page<T> findAll() throws Exception;
 
     public long getAllCount(String keyword) throws Exception;
+
 }

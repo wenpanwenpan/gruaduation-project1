@@ -56,6 +56,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("/").setViewName("login");
                 //为main.html请求添加视图映射
                 registry.addViewController("/main.html").setViewName("dashboard");
+                registry.addViewController("/main-index.html").setViewName("/adminPage/adminhome");
                 //设置管理员登录界面的中英文切换
                 registry.addViewController("/adminLogin.html").setViewName("adminLogin");
             }
@@ -72,14 +73,18 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 //当请求指定的一些页面后，检查是否已经登录
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                         .excludePathPatterns("/index.html","/","/usr/login","/usr/adminLogin")
-                        .excludePathPatterns("/shopping/goshopping")
+                        .excludePathPatterns("/shopping/goshoppingbypage")
                         .excludePathPatterns("/usr/switchToAdmin")
                         .excludePathPatterns("/usr/switchToUser")
-                        .excludePathPatterns("/adminLogin.html");
+                        .excludePathPatterns("/adminLogin.html")
+                        //放行图片静态资源（不进行拦截）
+                        .excludePathPatterns("/images/**")
+                        .excludePathPatterns("/adminPage/**")
+                        //放行静态资源
+                        .excludePathPatterns("/asserts/**","/webjars/**")
+                        .excludePathPatterns("/regist/**");     //放行注册请求
             }
         };
-
-
 
         return adapter;
     }
@@ -123,7 +128,9 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         super.addResourceHandlers(registry);
+        registry.addResourceHandler("/images/**").addResourceLocations("file:E:\\IDEAWorkSpace\\GraduationProject\\gruaduation-project1\\web\\src\\main\\resources\\static\\images\\");
     }
 
     @Override

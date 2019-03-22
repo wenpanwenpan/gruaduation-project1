@@ -5,6 +5,7 @@
 <configuration>
 
     <settings>
+        <!--开启驼峰命名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 </configuration>

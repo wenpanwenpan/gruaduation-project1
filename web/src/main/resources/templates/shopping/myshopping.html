@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -7,15 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Dashboard Template for Bootstrap</title>
+  <title>购物界面</title>
   <!-- Bootstrap core CSS -->
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
   <link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
   <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-
 </head>
 
 <body>
@@ -25,12 +20,12 @@
 <div class="container-fluid">
   <div class="row">
     <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
-    <div th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
+    <div th:if="${loginUser != null || (adminLoginUser == null && loginUser == null)}" th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <section class="jumbotron text-center">
+      <section class="jumbotron text-center"  style="background-image: url('/images/backimg3.jpg');background-repeat: no-repeat">
           <h1 class="jumbotron-heading">二手商品界面</h1>
           <p>
-            <a href="https://getbootstrap.com/docs/4.1/examples/album/#" class="btn btn-primary my-2">Main call to action</a>
+            <a th:href="@{/usr/toOrderCar}" class="btn btn-primary my-2">查看我的购物车</a>
             <a href="https://getbootstrap.com/docs/4.1/examples/album/#" class="btn btn-secondary my-2">Secondary action</a>
           </p>
       </section>
@@ -115,108 +110,36 @@
   </div>
 </div>
 
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
-<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
-
-<!-- Icons -->
-<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script type="text/javascript"  th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript"  th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript"  th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!--引入自定义的js文件-->
+<script type="text/javascript" th:src = "@{/asserts/js/myjs.js}"></script>
 
 <script>
-    //解析显示分页条
-    $(function () {
-        //得到当前页码并且转换为整型
-        var currentNum = parseInt($("#currentPage").attr("name"));
-        //得到总页数
-        var allPages = parseInt($("#allPages").attr("name"));
-
-        //将上一页的<li>标签加入到<ul>分页条中
-        var prePage = $("<li></li>").addClass("page-item").append($("<a></a>").
-        attr("href","/shopping/goshoppingbypage?pageNo=" +  (currentNum - 1) ).addClass("page-link").append("上一页"));
-        //将下一页的<li>标签加入到<ul>分页条中
-        var nextPage = $("<li></li>").addClass("page-item").append($("<a></a>").
-        attr("href","/shopping/goshoppingbypage?pageNo=" + (currentNum + 1) ).addClass("page-link").append("下一页"));
-
-        //禁用上一页或下一页
-        if(currentNum == 1){
-            prePage.addClass("disabled");
-        }
-        if(currentNum == allPages){
-            nextPage.addClass("disabled");
-        }
-
-        //将上一页加入到分页条中
-        $(".pagination").append(prePage);
-
-        //遍历取出每一个连续显示的页码，构建分页条
-        $(".myPaging").each(function (index, item) {
-            var numLi = $("<li></li>").append($("<a></a>").attr("href","/shopping/goshoppingbypage?pageNo=" + item.id).
-            append(item.id).addClass("page-link")).addClass("page-item");
-
-            //设置选中页数高亮显示
-            if(item.id == currentNum.toString()){
-                numLi.addClass("active");
-            }
-            //将生成的<li></li>标签添加到ul分页条中
-            $(".pagination").append(numLi);
-        });
-
-        $(".pagination").append(nextPage);
-    });
-
-    //==================================================================================================================
-
-
     $(function () {
 
-        //点击跳转到我的订单，因为两个地方都要用到该方法，所以将它抽取出来
-        function toMyOrder() {
-            var checkboxpid = "||";
-            var commodityCount = "||";
-            //将所有的pid进行拼串
-            $.each($(".check_item:checked"),function (i,item) {
-                if(checkboxpid == "||"){			//保证拼接后的pid串是  1--3--5这种形式
-                    checkboxpid = item.id;
-                }else{
-                    checkboxpid = checkboxpid + "--" + item.id;
-                }
-            });
-            //将所有的购买次数进行拼串
-            $.each($(".check_item:checked"),function (i,item) {
-                if(commodityCount == "||"){			//保证拼接后的pid串是  1--3--5这种形式
-                    commodityCount = item.name;
-                }else{
-                    commodityCount = commodityCount + "__" + item.name;
-                }
-            });
-            window.location.href = "/usr/ajax/toMyOrder/" + checkboxpid + "/" + commodityCount;
-        }
+        //引入解析分页条的函数，已成功抽取
+        parsingPaginatioBar();
 
         //添加到购物车
         $('.btn.btn-sm.btn-outline-secondary.addToShoppingCar').click(function () {
-            //取得商品编号pid
-            var tmp = $(this).attr("id");
-
-            $.ajax({
-                url : "/usr/ajax/addToShoppingCar", //路径
-                type : "POST",            //提交方式
-                data : {
-                    "pid" : tmp
-                },                        //数据，这里使用的是Json格式进行传输
-                success : function(result) {//返回数据根据结果进行相应的处理
-                    if ( result == "true" ) {
-                        alert("成功添加到购物车");
-                    } else {
-                        alert("添加到购物车失败");
+                //取得商品编号pid
+                var tmp = $(this).attr("id");
+                $.ajax({
+                    url : "/usr/ajax/addToShoppingCar", //路径
+                    type : "POST",            //提交方式
+                    data : {
+                        "pid" : tmp
+                    },                        //数据，这里使用的是Json格式进行传输
+                    success : function(result) {//返回数据根据结果进行相应的处理
+                        if ( result == "true" ) {
+                            alert("成功添加到购物车");
+                        } else {
+                            alert("添加到购物车失败");
+                        }
                     }
-                }
-            });
-
+                });
         });
 
         //去我的订单界面
@@ -229,13 +152,11 @@
             //取得点击的按钮的id属性值
             var tmp = $(this).attr("id");
             window.location.href = "/usr/ajax/buyImmediately/" + tmp;
-
         });
 
+        //顶部栏搜索商品
+        searchCommodity();
     });
-
 </script>
-
-
 </body>
 </html>

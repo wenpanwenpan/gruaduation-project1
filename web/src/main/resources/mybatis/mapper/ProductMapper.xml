@@ -2,19 +2,43 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wp.spring.mapper.EmployeeMapper">
-   <!--    public Employee getEmpById(Integer id);
+<mapper namespace="com.wp.demo.mapper.ProductMapper">
 
-    public void insertEmp(Employee employee);-->
-   <!-- <select id="getEmpById" resultType="com.wp.spring.bean.Employee">
-        SELECT * FROM employee WHERE id=#{id}
-    </select>
+   <!--resultType的值是指集合中的元素类型-->
+   <select id="findMySellByPids" resultType="com.wp.demo.bean.Commodity">
+      SELECT * FROM commodity c
+      WHERE c.pid IN
+      <foreach collection="pids" item="pid" index="index" open="(" close=")" separator=",">
+        #{pid}
+      </foreach>
+   </select>
 
-    <insert id="insertEmp">
-        INSERT INTO employee(lastName,email,gender,d_id) VALUES (#{lastName},#{email},#{gender},#{dId})
-    </insert>
+   <delete id="removeByPid" parameterType="java.lang.Integer">
+      DELETE FROM commodity WHERE pid = #{pid}
+   </delete>
 
-    <select id="">
-
-    </select>-->
+   <update id="doUpdate" parameterType="com.wp.demo.bean.Commodity">
+      UPDATE commodity
+      <set>
+         <if test="name != null">
+            name = #{name},
+         </if>
+         <if test="price != null">
+            price = #{price},
+         </if>
+         <if test="note != null">
+            note = #{note},
+         </if>
+         <if test="tid != null">
+            tid = #{tid },
+         </if>
+         <if test="date != null">
+            date = #{date},
+         </if>
+         <if test="count != null">
+            count = #{count}
+         </if>
+      </set>
+    WHERE pid = #{pid}
+   </update>
 </mapper>

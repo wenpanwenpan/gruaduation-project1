@@ -6,16 +6,11 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title>管理员登录页面</title>
-
-		<!-- Bootstrap core CSS 引入webjars下的bootstrap的css样式-->
 		<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" href="asserts/css/bootstrap.min.css" rel="stylesheet">
-
-		<!-- Custom styles for this template自己的样式,这里使用thymeleaf引入 -->
 		<link  th:href="@{/asserts/css/signin.css}" href="asserts/css/signin.css" rel="stylesheet">
-
 	</head>
 
-	<body class="text-center">
+	<body class="text-center" style="background-color: #F2F2F2">
 		<form class="form-signin" th:action="@{/usr/adminLogin}" method="post">
 			<!--使用thymeleaf引入地址：默认是在当前项目下-->
 			<img class="mb-4" th:src="@{/asserts/img/bootstrap-solid.jpg}" src="asserts/img/bootstrap-solid.svg" alt="" width="72" height="72">
@@ -37,7 +32,5 @@
 			<a class="btn btn-sm" th:href="@{/adminLogin.html(l='zh_CN')}">中文</a>
 			<a class="btn btn-sm" th:href="@{/adminLogin.html(l='en_US')}">English</a>
 		</form>
-
 	</body>
-
 </html>
