@@ -1,30 +1,24 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-
 		<title>Data Analysis</title>
-		<!-- Bootstrap core CSS -->
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
-
-		<!-- Custom styles for this template -->
 		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 		<script th:src="@{/asserts/js/echarts.min.js}"></script>
 	</head>
+
 	<body style="background-color: #b1dfbb">
         <!--引入topbar！！！-->
-        <div th:replace="~{commons/bar::topbar}"></div>
+        <div th:replace="~{commons/bar-back::topbar}"></div>
 
 		<div class="container-fluid">
 			<div class="row">
                 <!--引入sidebar-->
-                <div th:replace="~{commons/bar::#sidebar(activeUri='analysisResult.html')}"></div>
-
+                <div th:replace="~{commons/bar-back::#sidebar(activeUri='analysisResult.html')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<h3>今日数据分析</h3>
 					<p><h5>图表说明：</h5></p>
@@ -34,38 +28,29 @@
 							<td><span style="text-align: center"><h5>柱状图显示</h5></span></td>
 							<td style="text-align: right"><span style="text-align: center"><h5>扇形图显示</h5></span></td>
 						</tr>
-
-
 						<tr>
 							<td><!-- 为 ECharts 准备一个具备大小（宽高）的 DOM,图标组件容器 -->
 								<div id="main" style="width: 500px;height:400px; float: left" >
-
-
 								</div>
 							</td>
 							<td>
 								<div id="two" style="width: 500px;height:400px; float: left">
-
 								</div>
 							</td>
 						</tr>
-
-
 					</table>
 				</main>
 			</div>
 		</div>
 
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
 		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
 		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
-
 		<script th:src="@{/asserts/js/echarts.min.js}"></script>
+		<!--引入自定义的js文件-->
+		<script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
 
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
         option = {
@@ -162,6 +147,12 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart1.setOption(option1);
+	</script>
+	<script type="text/javascript">
+		$(function () {
+			//搜索商品
+			adminSearchCommodity();
+		})
 	</script>
 
 	</body>

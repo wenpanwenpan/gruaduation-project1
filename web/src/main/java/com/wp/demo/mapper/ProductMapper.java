@@ -12,9 +12,6 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    //@Select("select * from department where id=#{id}")
-    //public Department getDeptById(Integer id);
-
     //查询出所有的商品，并且保证该商品的数量不等于0
     @Select("select * from commodity where count != 0")
     public Page<Commodity> getAllCommodity();

@@ -39,7 +39,6 @@ public class ShoppingControllerExtend {
 
     @Autowired
     ProductAndUserService productAndUserService;
-
     //用于生成上传的商品照片名
     IPTimeStamp ipTimeStamp = new IPTimeStamp("192.168.1.1");
 
@@ -94,8 +93,6 @@ public class ShoppingControllerExtend {
         }
         //取得session域中的用户信息
         Customer customer = (Customer) session.getAttribute("customer");
-        //取得用户所出售的所有商品信息
-        String commodities = customer.getCommodities();
 
         //设置要保存到数据库里面的照片名称
         commodity.setPhoto(fileName);
@@ -106,28 +103,15 @@ public class ShoppingControllerExtend {
 
         //设置该商品所属的用户
         commodity.setAuthorId(customer.getUid() + "");
-        System.out.println("要添加的商品：" + commodity);
-        //向数据库中保存该商品，必须要先保存该商品，才能在数据库中获取该商品的自增id值，然后保存到用户的商品集合
-        productService.doCreate(commodity);
-
-        //如果该用户第一次上传出售商品
-        if(commodities == null || "".equals(commodities)){
-            //将该用户上传的商品的id保存到对应属性中
-            customer.setCommodities(commodity.getPid() + "");
-        }else {
-            commodities = commodities + "_" + commodity.getPid();
-            customer.setCommodities(commodities);
+        boolean flag = productAndUserService.addCommodity(customer, commodity);
+        if(flag){
+            model.addAttribute("msg","发布成功！");
+        }else{
+            model.addAttribute("msg","发布失败！");
         }
-
-        System.out.println("customer:  " + customer);
-        //将用户信息保存回数据库
-        userService.doUpdate(customer);
-        productAndUserService.addCommodity(customer,commodity);
-
         //从商品表中查询出所有类型,用于显示选择框
         List<CommodityType> allCommodityType = productService.findAllCommodityType();
         model.addAttribute("allCommodityType",allCommodityType);
-        model.addAttribute("msg","发布成功！");
 
         return "/shopping/sell";
     }
@@ -174,8 +158,10 @@ public class ShoppingControllerExtend {
         boolean isUsersCommodity = UserUtils.isUsersCommodity(pid + "", customer);
         //检测用户是否是删除的自己上传的商品
         if(isUsersCommodity){
-           Customer customer1 = UserUtils.ModifyUsersCommoditiesUtils(customer, pid, productService,userService);
-           session.setAttribute("customer",customer1);
+            Customer customer1 = productAndUserService.removeMyCommodity(customer, pid);
+            if(customer1 != null){
+                session.setAttribute("customer",customer1);
+            }
        }
 
         return "redirect:/user/manageMyCommodities";

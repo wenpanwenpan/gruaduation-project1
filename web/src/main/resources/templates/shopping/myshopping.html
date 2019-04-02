@@ -20,7 +20,7 @@
 <div class="container-fluid">
   <div class="row">
     <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
-    <div th:if="${loginUser != null || (adminLoginUser == null && loginUser == null)}" th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
+    <div th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <section class="jumbotron text-center"  style="background-image: url('/images/backimg3.jpg');background-repeat: no-repeat">
           <h1 class="jumbotron-heading">二手商品界面</h1>

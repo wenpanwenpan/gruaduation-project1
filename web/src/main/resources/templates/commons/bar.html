@@ -9,8 +9,7 @@
         <!--topbar:使用 th:fragment="topbar"将顶部栏抽取出来，在其他页面进行引用-->
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 collapse navbar-collapse" th:fragment="topbar">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.loginUser != null}" th:text="'欢迎您：' + ${session.loginUser}" href="/user/modifyPersonalInfoPre">Company name</a>
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.adminLoginUser != null}" th:text="'欢迎管理员：' + ${session.adminLoginUser}" href="#">Company name</a>
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.loginUser == null && session.adminLoginUser == null}" th:text="请登录" href="/index.html">Company name</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.loginUser == null}" th:text="请登录" href="/index.html">Company name</a>
             <input class="form-control form-control-dark w-100" th:id="seachCommodity" type="text" placeholder="Search" aria-label="Search">
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
