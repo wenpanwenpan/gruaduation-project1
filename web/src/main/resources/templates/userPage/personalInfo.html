@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>个人信息</title>
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<style type="text/css">
+			body{
+				background: url(/images/backimg1.jpg)repeat;
+			}
+		</style>
+	</head>
+
+	<body>
+        <!--引入topbar！！！-->
+        <div th:replace="~{commons/bar::topbar}"></div>
+		<div class="container-fluid">
+			<div class="row">
+                <!--引入sidebar,并设置一个参数使他高亮显示-->
+                <div th:replace="~{commons/bar::#sidebar(activeUri='personalInfo.html')}"></div>
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<br><br><br>
+					<h2 align="center"><span style="color:  #34ce57">我的个人信息</span></h2>
+					<h4 align="center" th:if="${PersonalInfo != null}">
+						<span th:text="${PersonalInfo}" style="color: #34ce57"></span>
+					</h4>
+					<div class="table-responsive" style="text-align: center;">
+						<form method="post" action="/user/modifyPersonalInfo">
+							<table class="table table-striped table-sm" style="text-align: center;width: 600px;margin:auto;" >
+								<tbody th:if="${customer != null}">
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">用户姓名：</span></td>
+									<td><input type="text" style="width:200px;" th:value="${customer.uname}" class="form-control" name="uname" autofocus=""></td>
+								</tr>
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">联系电话：</span></td>
+									<td><input type="text" style="width:200px;" maxlength="11" th:value="${customer.tel}" class="form-control" name="tel" required="" autofocus=""></td>
+								</tr>
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">登录账号</span>：</td>
+									<td><input type="text" style="width:200px;" th:value="${customer.account}"class="form-control" name="account" required="" autofocus=""></td>
+								</tr>
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">登录密码：</span></td>
+									<td><input type="password" style="width:200px;" th:value="${customer.password}" class="form-control" name="password" required="" autofocus=""></td>
+								</tr>
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">居住地址：</span></td>
+									<td><input type="text" style="width:200px;" th:value="${customer.address}" class="form-control" name="address" required="" autofocus=""></td>
+								</tr>
+								<tr>
+									<td><span style="color: #34ce57;font-weight: bolder">住址邮编：</span></td>
+									<td><input type="text" style="width:200px;" th:value="${customer.zipCode}" class="form-control" name="zipCode" required="" autofocus=""></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+											<input type="submit" class="btn btn-success" value="确认修改">
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</form>
+					</div>
+				</main>
+			</div>
+		</div>
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+	</body>
+</html>

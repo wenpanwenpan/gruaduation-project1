@@ -1,5 +1,6 @@
 package com.wp.demo.controller;
 
+import com.wp.demo.bean.AnasislyResult;
 import com.wp.demo.bean.CommodityType;
 import com.wp.demo.service.AnasislyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,10 @@ public class AnalysisController {
     @RequestMapping(value = "/usr/analysis",method = RequestMethod.GET)
     public String analysisResult(HttpSession session,Model model){
 
-        List<CommodityType> commodityType = anasislyService.getCommodityType();
+        List<AnasislyResult> commodityType = anasislyService.getCommodityType();
         if(session.getAttribute("adminLoginUser") != null){
 
             model.addAttribute("commodityType",commodityType);
-            System.out.println("commodityType:  " + commodityType);
             return "/adminPage/analysisResult";
         }
         model.addAttribute("commodityType",commodityType);

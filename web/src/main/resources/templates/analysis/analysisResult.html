@@ -1,169 +1,167 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Data Analysis</title>
+	<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+	<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+	<script th:src="@{/asserts/js/echarts.min.js}"></script>
+</head>
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<body style="background-color: #b1dfbb">
+<!--引入topbar！！！-->
+<div th:replace="~{commons/bar::topbar}"></div>
 
-		<title>Data Analysis</title>
-		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+<div class="container-fluid">
+	<div class="row">
+		<!--引入sidebar-->
+		<div th:replace="~{commons/bar::#sidebar(activeUri='analysisResult.html')}"></div>
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+			<h3>今日数据分析</h3>
+			<p><h5>图表说明：</h5></p>
+			<p><h6>下面的图表是利用大数据对每日消费的商品总量的一个情况分析！</h6></p>
+			<table>
+				<tr>
+					<td><span style="text-align: center"><h5>柱状图显示</h5></span></td>
+					<td style="text-align: right"><span style="text-align: center"><h5>扇形图显示</h5></span></td>
+				</tr>
+				<tr>
+					<td><!-- 为 ECharts 准备一个具备大小（宽高）的 DOM,图标组件容器 -->
+						<div id="main" style="width: 500px;height:400px; float: left" >
+						</div>
+					</td>
+					<td>
+						<div id="two" style="width: 500px;height:400px; float: left">
+						</div>
+					</td>
+				</tr>
+			</table>
+		</main>
+	</div>
+</div>
 
-		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-		<script th:src="@{/asserts/js/echarts.min.js}"></script>
-	</head>
-	<body style="background-color: #b1dfbb">
-        <!--引入topbar！！！-->
-        <div th:replace="~{commons/bar::topbar}"></div>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/echarts.min.js}"></script>
+<!--引入自定义的js文件-->
+<script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
 
-		<div class="container-fluid">
-			<div class="row">
-                <!--引入sidebar-->
-                <div th:replace="~{commons/bar::#sidebar(activeUri='analysisResult.html')}"></div>
+<script type="text/javascript" th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var counti = new Array(7);
+    var i = 0;
+    $.each([[${commodityType}]],function (index,item) {
+        counti[i] = item.count;
+        i++;
+    })
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['书籍', '家电', '食品', '交通', '服饰', '日用品', '其他']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [counti[0],counti[1],counti[2],counti[3],counti[4],counti[5],counti[6]],
+            type: 'bar'
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('two'));
+    option1 = {
+        backgroundColor: '#2c343c',
 
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h3>今日数据分析</h3>
-					<p><h5>图表说明：</h5></p>
-					<p><h6>下面的图表是利用大数据对每日消费的商品总量的一个情况分析！</h6></p>
-					<table>
-						<tr>
-							<td><span style="text-align: center"><h5>柱状图显示</h5></span></td>
-							<td style="text-align: right"><span style="text-align: center"><h5>扇形图显示</h5></span></td>
-						</tr>
+        title: {
+            text: 'Customized Pie',
+            left: 'center',
+            top: 20,
+            textStyle: {
+                color: '#ccc'
+            }
+        },
 
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
 
-						<tr>
-							<td><!-- 为 ECharts 准备一个具备大小（宽高）的 DOM,图标组件容器 -->
-								<div id="main" style="width: 500px;height:400px; float: left" >
-
-
-								</div>
-							</td>
-							<td>
-								<div id="two" style="width: 500px;height:400px; float: left">
-
-								</div>
-							</td>
-						</tr>
-
-
-					</table>
-				</main>
-			</div>
-		</div>
-
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
-
-		<script th:src="@{/asserts/js/echarts.min.js}"></script>
-
-	<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-        option = {
-            xAxis: {
-                type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [120, 200, 150, 80, 70, 110, 130],
-                type: 'bar'
-            }]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-	</script>
-	<script>
-        // 基于准备好的dom，初始化echarts实例
-        var myChart1 = echarts.init(document.getElementById('two'));
-        option1 = {
-            backgroundColor: '#2c343c',
-
-            title: {
-                text: 'Customized Pie',
-                left: 'center',
-                top: 20,
-                textStyle: {
-                    color: '#ccc'
-                }
-            },
-
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-
-            visualMap: {
-                show: false,
-                min: 80,
-                max: 600,
-                inRange: {
-                    colorLightness: [0, 1]
-                }
-            },
-            series : [
-                {
-                    name:'访问来源',
-                    type:'pie',
-                    radius : '55%',
-                    center: ['50%', '50%'],
-                    data:[
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'},
-                        {value:400, name:'搜索引擎'}
-                    ].sort(function (a, b) { return a.value - b.value; }),
-                    roseType: 'radius',
-                    label: {
-                        normal: {
-                            textStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
-                            }
+        visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+                colorLightness: [0, 1]
+            }
+        },
+        series : [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius : '55%',
+                center: ['50%', '50%'],
+                data:[
+                    {value:counti[0], name:'书籍类'},
+                    {value:counti[1], name:'家电类'},
+                    {value:counti[2], name:'食品类'},
+                    {value:counti[3], name:'交通工具类'},
+                    {value:counti[4], name:'服饰类'},
+                    {value:counti[5], name:'生活日用品类'},
+                    {value:counti[6], name:'其他类'}
+                ].sort(function (a, b) { return a.value - b.value; }),
+                roseType: 'radius',
+                label: {
+                    normal: {
+                        textStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
                         }
-                    },
-                    labelLine: {
-                        normal: {
-                            lineStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
-                            },
-                            smooth: 0.2,
-                            length: 10,
-                            length2: 20
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#c23531',
-                            shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-
-                    animationType: 'scale',
-                    animationEasing: 'elasticOut',
-                    animationDelay: function (idx) {
-                        return Math.random() * 200;
                     }
+                },
+                labelLine: {
+                    normal: {
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#c23531',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function (idx) {
+                    return Math.random() * 200;
                 }
-            ]
-        };
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
+</script>
+<script type="text/javascript">
+    $(function () {
+        //搜索商品
+        searchCommodity();
+    })
+</script>
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart1.setOption(option1);
-	</script>
-
-	</body>
+</body>
 
 </html>

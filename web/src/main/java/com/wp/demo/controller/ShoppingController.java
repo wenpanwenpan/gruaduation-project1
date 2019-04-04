@@ -275,8 +275,9 @@ public class ShoppingController {
                 //更新商品数量
                 productService.doUpdate(commodity);
             }
-            log.info("商品编号:::" + commodity.getPid() + "__商品名称:::" + commodity.getName() +
-                    "__商品所属类别:::" + commodity.getTid() + "__商品所属卖家:::" + commodity.getAuthorId());
+            //--:::7____二手华为手机____3____2:::--
+            //- 商品编号:::7__商品名称:::二手华为手机__商品所属类别:::6__商品所属卖家:::2
+            log.info("<===:::" + commodity.getPid() + "____" + commodity.getName() + "____" + commodity.getTid() +  "____" + commodity.getAuthorId() + ":::====>");
         }
         //处理从购物车中进行购买,第一个参数为pid的拼串，第二个参数为数量的拼串
         if(args.length == 2){
@@ -308,8 +309,7 @@ public class ShoppingController {
                             //更新商品数量
                             productService.doUpdate(commodity);
                             //将日志打印到文件中，用于后期做数据分析
-                            log.info("商品编号:::" + commodity.getPid() + "__商品名称:::" + commodity.getName() +
-                                    "__商品所属类别:::" + commodity.getTid() + "__商品所属卖家:::" + commodity.getAuthorId());
+                            log.info("<===:::" + commodity.getPid() + "____" + commodity.getName() + "____" + commodity.getTid() +  "____" + commodity.getAuthorId() + ":::====>");
                         }
                     } catch (Exception e) {
                         throw new Exception("数据转换异常！！！");
@@ -354,7 +354,6 @@ public class ShoppingController {
         HashMap<Integer,Integer> allpid =  getAllpid(session);
         //修改购物数量
         allpid.put(pid,count);
-
         return "true";
     }
 }

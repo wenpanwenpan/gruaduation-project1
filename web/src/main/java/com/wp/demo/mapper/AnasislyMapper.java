@@ -1,5 +1,6 @@
 package com.wp.demo.mapper;
 
+import com.wp.demo.bean.AnasislyResult;
 import com.wp.demo.bean.CommodityType;
 import com.wp.demo.bean.Customer;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,5 +13,5 @@ import java.util.List;
 public interface AnasislyMapper {
 
     @Select("select a.type,a.count,c.type_name from anasislytype a,commoditytype c where a.type = c.id")
-    public List<CommodityType> getCommodityType();
+    public List<AnasislyResult> getCommodityType();
 }

@@ -26,7 +26,7 @@
           <h1 class="jumbotron-heading">二手商品界面</h1>
           <p>
             <a th:href="@{/usr/toOrderCar}" class="btn btn-primary my-2">查看我的购物车</a>
-            <a href="https://getbootstrap.com/docs/4.1/examples/album/#" class="btn btn-secondary my-2">Secondary action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
           </p>
       </section>
 
@@ -40,10 +40,10 @@
 
                 <!--使用th标签的src属性拼接-->
                 <span th:if="${commodity.photo != null }">
-                  <img th:src="@{'/images/'+${commodity.photo}}"/>
+                  <img th:src="@{'/images/'+${commodity.photo}}" class="modelimg" th:id="${commodity.pid}"/>
                 </span>
                 <span th:if="${commodity.photo == null }">
-                  <img th:src="@{/images/nophotos.jpg}"/>
+                  <img th:src="@{/images/nophotos.jpg}"  class="modelimg" th:id="${commodity.pid}"/>
                 </span>
 
                 <div class="card-body">
@@ -65,9 +65,9 @@
                     </div>
 
                     <small class="text-muted">
-                      <a href="#">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                        和他聊聊
+                      <a href="#" class="mymessage" th:id="${commodity.pid}">
+                        <span class="glyphicon glyphicon-comment"  aria-hidden="true"></span>
+                        给他留言
                       </a>
                     </small>
                   </div>
@@ -109,6 +109,20 @@
     </main>
   </div>
 </div>
+<!--模态框-->
+<div id="myModel">
+  <div class="modal fade emp-add-modal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-body">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body" th:id="mymodel">
+
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  </div>
 
 <script type="text/javascript"  th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript"  th:src="@{/asserts/js/popper.min.js}"></script>
@@ -118,6 +132,47 @@
 
 <script>
     $(function () {
+
+        //使用模态框
+        $(".modelimg").click(function () {
+            var temp = $(this).attr("id");
+            $.ajax({
+                url:"/user/viewcommoditydetail/" + temp,
+                type:"GET",
+                success:function (result) {
+                    $("#mymodel").empty();
+                    if (result != null){
+                        var img;
+                        if(result.photo != null){
+                            img = $("<img>").attr("src",'/images/'+ result.photo).attr("style","text-align: center");
+                        }else {
+                            img = $("<img>").attr("src","/images/nophotos.jpg").attr("style","text-align: center");
+                        }
+                        $("#mymodel").append("<p></p>").append(img);
+                        $("#mymodel").append("<p></p>").append("商品编号： " + result.pid);
+                        $("#mymodel").append("<p></p>").append("商品名称： " + result.name);
+                        $("#mymodel").append("<p></p>").append("发布日期： " + result.date);
+                        $("#mymodel").append("<p></p>").append("商品价格： " + result.price);
+                        $("#mymodel").append("<p></p>").append("商品发布者： " + result.authorId);
+                        $("#mymodel").append("<p></p>").append("商品数量： " + result.count);
+                        $("#mymodel").append("<p></p>").append("商品介绍： " + result.note);
+                        var div = $("<div></div>").attr("class","modal-footer");
+                        var btn = $("<button>关闭</button>").attr("type","button").attr("class","btn btn-default").attr("data-dismiss","modal");
+                        div.append(btn);
+                        $("#mymodel").append(div);
+                    }
+                }
+            });
+            $('.emp-add-modal').modal({
+                /*backdrop:"static",*/
+                keyboard:true
+            });
+        });
+
+        $('.mymessage').click(function () {
+            var pid = $(this).attr("id");
+            window.location.href = "/user/message/" + pid;
+        });
 
         //引入解析分页条的函数，已成功抽取
         parsingPaginatioBar();

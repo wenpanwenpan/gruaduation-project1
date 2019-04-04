@@ -203,4 +203,5 @@ public class ShoppingControllerExtend {
 
         return "redirect:/user/manageMyCommodities";
     }
+
 }

@@ -53,16 +53,22 @@
 	<script type="text/javascript" th:inline="javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
+        var counti = new Array(7);
+        var i = 0;
+        $.each([[${commodityType}]],function (index,item) {
+            counti[i] = item.count;
+            i++;
+        })
         option = {
             xAxis: {
                 type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: ['书籍', '家电', '食品', '交通', '服饰', '日用品', '其他']
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                data: [120, 200, 150, 80, 70, 110, 130],
+                data: [counti[0],counti[1],counti[2],counti[3],counti[4],counti[5],counti[6]],
                 type: 'bar'
             }]
         };
@@ -104,11 +110,13 @@
                     radius : '55%',
                     center: ['50%', '50%'],
                     data:[
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'},
-                        {value:400, name:'搜索引擎'}
+                        {value:counti[0], name:'书籍类'},
+                        {value:counti[1], name:'家电类'},
+                        {value:counti[2], name:'食品类'},
+                        {value:counti[3], name:'交通工具类'},
+                        {value:counti[4], name:'服饰类'},
+                        {value:counti[5], name:'生活日用品类'},
+                        {value:counti[6], name:'其他类'}
                     ].sort(function (a, b) { return a.value - b.value; }),
                     roseType: 'radius',
                     label: {
@@ -144,7 +152,6 @@
                 }
             ]
         };
-
         // 使用刚指定的配置项和数据显示图表。
         myChart1.setOption(option1);
 	</script>

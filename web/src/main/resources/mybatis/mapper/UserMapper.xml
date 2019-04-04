@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wp.demo.mapper.UserMapper">
+   <!--    public Employee getEmpById(Integer id);
+
+    public void insertEmp(Employee employee);-->
+   <!--<select id="getEmpById" resultType="com.wp.spring.bean.Employee">
+        SELECT * FROM employee WHERE id=#{id}
+    </select>
+
+    <insert id="insertEmp">
+        INSERT INTO employee(lastName,email,gender,d_id) VALUES (#{lastName},#{email},#{gender},#{dId})
+    </insert>-->
+
+
+   <select id="doUpdate" resultType="Integer">
+      UPDATE customer SET commodities = #{commodities} WHERE uid = #{uid}
+   </select>
+
+   <update id="doUpdatePersonalInfo" parameterType="com.wp.demo.bean.Customer">
+      UPDATE customer
+      <set>
+         <if test="uname != null">
+            uname = #{uname},
+         </if>
+         <if test="tel != null">
+            tel = #{tel},
+         </if>
+         <if test="account != null">
+            account = #{account},
+         </if>
+         <if test="password != null">
+            password = #{password},
+         </if>
+         <if test="address != null">
+            address = #{address},
+         </if>
+         <if test="zipCode != null">
+            zip_code = #{zipCode},
+         </if>
+         <if test="commodities != null">
+            commodities = #{commodities}
+         </if>
+      </set>
+      WHERE uid = #{uid}
+   </update>
+
+   <select id="findCustomerById" resultType="com.wp.demo.bean.Customer">
+      SELECT uid,uname,tel,account,password,address,zip_code,commodities from customer WHERE uid = #{uid}
+   </select>
+   
+   <delete id="doRemoveUserById">
+      DELETE FROM customer WHERE uid = #{uid}
+   </delete>
+
+
+</mapper>

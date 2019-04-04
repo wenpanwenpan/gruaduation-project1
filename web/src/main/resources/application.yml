@@ -4,7 +4,7 @@ spring:
     username: root
     password: wenpan
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mybatis?useAffectedRows=true
+    url: jdbc:mysql://localhost:3306/mybatis?useAffectedRows=true&serverTimezone=UTC
     type: com.alibaba.druid.pool.DruidDataSource
     #type: org.apache.ibatis.datasource.pooled.PooledDataSource
 #   数据源其他配置

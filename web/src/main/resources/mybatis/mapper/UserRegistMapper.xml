@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wp.demo.mapper.UserRegistMapper">
+
+   <insert id="userRegist">
+      INSERT INTO customer(uname,tel,account,password,address,zip_code) VALUES(#{uname},#{tel},#{account},#{password},#{address},#{zipCode})
+   </insert>
+</mapper>

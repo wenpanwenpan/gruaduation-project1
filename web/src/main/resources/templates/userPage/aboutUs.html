@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>关于我们</title>
+  <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+</head>
+
+<body style="background-color: #F2F2F2">
+<!--引入抽取的topbar,使用thymeleaf的语法th:replace="~{模板名::模块名或选择器}" -->
+<div th:replace="~{commons/bar::topbar}"></div>
+<div class="container-fluid">
+  <div class="row">
+    <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
+    <div th:replace="~{commons/bar::#sidebar(activeUri='aboutUs.html')}"></div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <h2 style="text-align: left"><span style="color: green">About Us：</span></h2><hr>
+      <div class="main" style="text-align: center">
+        <h4>亲爱的用户您好！</h4>
+        <h5>本系统主要针对于二手商品的购买和出售！我们倾尽所有努力只为了能</h5>
+        <h5>给你带来更好的服务，在这里你可以满足你对商品的所有需求，确保商</h5>
+        <h5>品的良好质量，以及优美的价格。同时你也可以出售你不需要的闲置商</h5>
+        <h5>品来赚取丰厚的利润。在这里，我们将竭力为您提供一个舒适的购物平</h5>
+        <h5>台，让您安全放心，以最优惠的价格买到最好的商品，以最大的利润来</h5>
+        <h5>出售您的闲置！</h5><br>
+        <h5><span style="color: #dc3545">感谢您的使用以及对我们的信任！！！相信有您的认可我们会越做越好。</span></h5><br>
+        <h6>如果您有任何的疑问，请致电：13548112164</h6><br>
+        <h6>反馈邮箱：<a href="#">869485274@qq.com</a></h6><br>
+        <h6>© 开发者：<a href="#">西华大学  文攀</a> © 发布日期：<a href="#">2019-03-19</a></h6>
+      </div>
+    </main>
+  </div>
+</div>
+<script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+</body>
+</html>
