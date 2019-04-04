@@ -179,7 +179,7 @@ INSERT INTO `customer` VALUES ('4', '刘挺', '19952589631', 'liuting', 'liuting
 
 #### 2.管理员登录界面展示
 
-![1552984827277](https://github.com/wenpanwenpan/gruaduation-project1/blob/dev/images/adminlogin.png)
+![1552984827277](gruaduation-project1/images/adminlogin.png)
 
 #### 3.用户购物界面展示
 
