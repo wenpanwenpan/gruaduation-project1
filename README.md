@@ -26,13 +26,14 @@
 
 ### 1.数据库建表
 
-#### 1.*本项目一共使用了5张表分别是：*
+#### 1.*本项目一共使用了6张表分别是：*
 
 1. admin:用于保存管理员账号信息
 2. commodity：用于保存商品的基本属性
 3. commoditype：用于保存商品的类型
 4. customer：用于保存用户的相关信息
-5. analysis：用于保存经过大数据分析后的结果信息，表中数据主要是用于图表显示 (暂未涉及)
+5. analysis：用于保存经过大数据分析后的结果信息，表中数据主要是用于图表显示 
+6. usercontent: 用于保存用户的评论信息
 
 #### 2.表的sql：
 
@@ -156,7 +157,57 @@ INSERT INTO `customer` VALUES ('2', '张三', '15202869691', '张三', '123456',
 INSERT INTO `customer` VALUES ('4', '刘挺', '19952589631', 'liuting', 'liuting', '四川郫县红光镇', '610039', '26_27_28');
 
 ```
+5.分析结果表
+```mysql
+DROP TABLE IF EXISTS `anasislytype`;
+CREATE TABLE `anasislytype` (
+  `type` int(10) DEFAULT NULL,
+  `count` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of anasislytype
+-- ----------------------------
+INSERT INTO `anasislytype` VALUES ('1', '200');
+INSERT INTO `anasislytype` VALUES ('2', '129');
+INSERT INTO `anasislytype` VALUES ('3', '150');
+INSERT INTO `anasislytype` VALUES ('4', '210');
+INSERT INTO `anasislytype` VALUES ('5', '300');
+INSERT INTO `anasislytype` VALUES ('6', '250');
+INSERT INTO `anasislytype` VALUES ('7', '198');
+```
+6.用户评论表
+```mysql
+DROP TABLE IF EXISTS `usercontent`;
+CREATE TABLE `usercontent` (
+  `user_id` int(10) NOT NULL COMMENT '评论者的id号',
+  `update_time` varchar(255) NOT NULL COMMENT '评论时间',
+  `commodity_id` int(10) NOT NULL COMMENT '评论的商品编号',
+  `seller_id` int(10) NOT NULL COMMENT '商品的出售则者的id',
+  `content` varchar(255) DEFAULT NULL COMMENT '评论内容',
+  `content_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '评论的id，设置为自增，用于管理回复表',
+  PRIMARY KEY (`content_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of usercontent
+-- ----------------------------
+INSERT INTO `usercontent` VALUES ('1', '2019-03-22', '1', '2', '价格能不能低一点啊', '1');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-03', '8', '1', '50块卖不卖？', '2');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-03', '7', '2', '这个手机都降价了，你还卖这么贵？', '3');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-03', '4', '2', '这个是正品吗？价格可以少一点不？', '4');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-03', '6', '2', '这本书是今年出版的嘛？能不能发几张书籍图片过来参考一下？', '5');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-03', '6', '2', '30块钱能卖的话就给我邮寄过来吧，地址四川成都、', '7');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-03', '6', '2', '算了，我已经买了其他的书籍了，不用麻烦您了。谢谢您！', '8');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-04', '3', '2', '这个可以看看具体配置吗？', '9');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-04', '7', '2', '这个手机真不好', '10');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-04', '3', '2', '这个笔记本不错哟', '11');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-04', '3', '2', '我要十个有没有', '12');
+INSERT INTO `usercontent` VALUES ('1', '2019-04-04', '3', '2', '你好，这个可以价格低一点吗', '13');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-06', '8', '1', '这本书是正品吗？', '14');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-06', '11', '1', '能拍一下这本书的目录吗？', '15');
+INSERT INTO `usercontent` VALUES ('2', '2019-04-06', '11', '1', '多久出版的啊', '16');
+```
 
 
 ## 2.项目搭建
@@ -170,7 +221,7 @@ INSERT INTO `customer` VALUES ('4', '刘挺', '19952589631', 'liuting', 'liuting
 
 :happy:项目介绍完毕！
 
-## 3.项目展示
+## 3.项目展示及功能介绍
 
 ### 用户登录显示
 
@@ -184,6 +235,9 @@ INSERT INTO `customer` VALUES ('4', '刘挺', '19952589631', 'liuting', 'liuting
 #### 3.用户购物界面展示
 
 ![1552984964231](https://github.com/wenpanwenpan/gruaduation-project1/blob/dev/images/shopping-main.png)
+
+#### 4.顾客查看商品详情
+![]()
 
 #### 4.用户加入购物车展示
 
