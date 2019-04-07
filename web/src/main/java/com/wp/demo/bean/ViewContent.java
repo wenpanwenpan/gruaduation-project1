@@ -11,6 +11,15 @@ public class ViewContent {
     private String pname;
     private Integer contentId;
     private Integer pid;        //商品id
+    private String updateTime;  //留言时间
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public Integer getPid() {
         return pid;
@@ -60,6 +69,7 @@ public class ViewContent {
                 ", pname='" + pname + '\'' +
                 ", contentId=" + contentId +
                 ", pid=" + pid +
+                ", updateTime='" + updateTime + '\'' +
                 '}';
     }
 }

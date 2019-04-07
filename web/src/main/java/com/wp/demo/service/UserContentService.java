@@ -1,6 +1,7 @@
 package com.wp.demo.service;
 
 import com.github.pagehelper.Page;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.wp.demo.bean.Content;
 import com.wp.demo.bean.ViewContent;
 import com.wp.demo.mapper.UserContentMapper;
@@ -85,5 +86,14 @@ public class UserContentService implements IProductService<Content,Integer>{
     @Override
     public long getAllCount(String keyword) throws Exception {
         return 0;
+    }
+
+    public boolean removeAllContent(Integer sellerId){
+
+        Integer flag = userContentMapper.removeAllContent(sellerId);
+        if(flag >0){
+            return true;
+        }
+        return false;
     }
 }

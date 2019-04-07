@@ -21,6 +21,7 @@ public interface UserContentMapper {
             "\tbb.content AS content,\n" +
             "\tbb.content_id AS contentId,\n" +
             "\tbb.uname AS uname,\n" +
+            "\tbb.update_time AS updateTime,\n" +
             "\tcc. NAME AS pname,\n" +
             "\tcc.pid AS pid\n" +
             "FROM\n" +
@@ -29,13 +30,14 @@ public interface UserContentMapper {
             "\t\t\tu.content_id,\n" +
             "\t\t\tu.commodity_id,\n" +
             "\t\t\tu.content,\n" +
+            "\t\t\tu.update_time,\n" +
             "\t\t\tcu.uname\n" +
             "\t\tFROM\n" +
             "\t\t\tusercontent u,\n" +
             "\t\t\tcustomer cu\n" +
             "\t\tWHERE\n" +
             "\t\t\tu.user_id = cu.uid\n" +
-            "\t\tAND u.seller_id = 2\n" +
+            "\t\tAND u.seller_id = #{sellerId}\n" +
             "\t) bb,\n" +
             "\tcommodity cc\n" +
             "WHERE\n" +
@@ -46,6 +48,9 @@ public interface UserContentMapper {
 
     @Delete("delete from usercontent where content_id = #{id}")
     public Integer removeContentById(@Param("id") Integer id);
+
+    @Delete("delete from usercontent where seller_id = #{sellerId}")
+    public Integer removeAllContent(@Param("sellerId") Integer sellerId);
 
 
 }

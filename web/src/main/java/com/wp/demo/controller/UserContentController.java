@@ -122,4 +122,20 @@ public class UserContentController {
         return commodity;
     }
 
+    /**
+     * 控控留言
+     * @param session
+     * @return
+     */
+    @GetMapping(value = "/user/removeallcontent")
+    public String removeAllContent(HttpSession session){
+
+        Customer customer = getCustomer(session);
+        if(customer != null){
+            Integer uid = customer.getUid();
+            userContentService.removeAllContent(uid);
+        }
+        return "redirect:/user/viewContent";
+    }
+
 }

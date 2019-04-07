@@ -21,13 +21,22 @@
                 <!--引入sidebar,并设置一个参数使他高亮显示-->
                 <div th:replace="~{commons/bar::#sidebar(activeUri='allContent.html')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2>我的评论</h2>
 					<div class="table-responsive">
 						<table class="table table-striped table-sm" style="text-align: center">
+							<thead>
+								<th style="text-align: left"><h2>全部留言:</h2></th>
+								<th>
+									<button  type="button" class="btn btn-danger removeallcontent">
+										<span class="glyphicon glyphicon-removecontent" aria-hidden="true" ></span>
+										清空留言
+									</button>
+								</th>
+							</thead>
 							<tbody>
 							<tr th:each="content:${pageInfo.list}">
 								<td style="text-align: left" >
-									<span th:text="'顾客：@'"></span>
+									<span th:text="${content.updateTime}"></span>
+									<span th:text="' , 顾客：@'"></span>
 									<a th:text="${content.uname}" href="#"></a>
 									<span th:text=" '，给你的商品：《 '"></span>
 									<a href="#" th:text="${content.pname}" class="modelimg" th:id="${content.pid}"></a>
@@ -121,12 +130,17 @@
                     });
                 });
 
-
+				//删除一条评论
                 $('.btn.btn-sm.btn-outline-secondary.removecontent').click(function () {
                     var cid = $(this).attr("id");
                     window.location.href = "/user/removecontent/" + cid;
                 });
 
+                //清空评论
+				$('btn.btn-danger.removeallcontent').click(function () {
+					window.location.href = "/user/removeallcontent";
+                });
+				
                 //解析显示分页条
                 parsingPaginatioBarForViewContent();
 
