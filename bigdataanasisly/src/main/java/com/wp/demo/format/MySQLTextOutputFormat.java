@@ -71,7 +71,6 @@ public class MySQLTextOutputFormat extends OutputFormat<IntWritable,IntWritable>
                     }
                 }
             }
-
         }
 
         /**

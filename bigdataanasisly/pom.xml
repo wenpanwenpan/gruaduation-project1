@@ -33,7 +33,12 @@
             <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
             <version>2.9.1</version>
         </dependency>
-
+        <!--引入热部署的相关依赖，以后修改java代码后不用重启服务器了，只用按ctl + f9进行重新编译即可-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- Junit依赖 -->
         <dependency>
             <groupId>junit</groupId>

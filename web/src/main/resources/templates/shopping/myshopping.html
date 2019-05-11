@@ -11,6 +11,36 @@
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
   <link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
   <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <style>
+    .commodityImg{
+      width: 200px;
+      height: 200px;
+      margin-top: 15px;
+      border-radius: 100px;
+    }
+    .card.mb-4.shadow-sm {
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      width: 100%;
+    }
+    .card-body p{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+
+    .modelImg{
+      margin-left: 10px;
+    }
+    .d-block.w-100{
+      border-radius: 20px;
+      width: 100%;
+    }
+
+  </style>
 </head>
 
 <body>
@@ -22,44 +52,78 @@
     <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
     <div th:replace="~{commons/bar::#sidebar(activeUri='myshopping.html')}"></div>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <section class="jumbotron text-center"  style="background-image: url('/images/backimg3.jpg');background-repeat: no-repeat">
-          <h1 class="jumbotron-heading">二手商品界面</h1>
-          <p>
-            <a th:href="@{/usr/toOrderCar}" class="btn btn-primary my-2">查看我的购物车</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-          </p>
-      </section>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="panel-heading">
+          <h1 style="text-align: center;"><span style="color: purple">二手商品界面</span></h1>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" th:src="@{/images/backimgtest1.png}" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h3><span style="color: green;">今日推荐</span></h3>
+              <p><span style="color: green">运动服系列</span></p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" th:src="@{/images/backimgtest2.png}" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h3><span style="color: green">今日推荐</span></h3>
+              <p><span style="color: green">linux入门</span></p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" th:src="@{/images/backimgtest3.png}" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h3><span style="color: green">今日推荐</span></h3>
+              <p><span style="color: green">摩托车系列</span></p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
 
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
 
             <!--取出保存在pageInfo中的商品集合-->
-            <div class="col-md-4" th:each="commodity:${pageInfo.list}">
-              <div class="card mb-4 shadow-sm">
+            <div class="col-md-3" th:each="commodity:${pageInfo.list}">
+              <div class="card mb-4 shadow-sm" style="background-color: azure">
 
                 <!--使用th标签的src属性拼接-->
                 <span th:if="${commodity.photo != null }">
-                  <img th:src="@{'/images/'+${commodity.photo}}" class="modelimg" th:id="${commodity.pid}"/>
+                  <img class = "commodityImg" th:src="@{'/images/'+${commodity.photo}}"  th:id="${commodity.pid}"/>
                 </span>
                 <span th:if="${commodity.photo == null }">
-                  <img th:src="@{/images/nophotos.jpg}"  class="modelimg" th:id="${commodity.pid}"/>
+                  <img class = "commodityImg" th:src="@{/images/nophotos.jpg}"   th:id="${commodity.pid}"/>
                 </span>
 
                 <div class="card-body">
+                  <p th:text="'￥ ' + ${commodity.price}" style="color: red;font-size: larger;font-weight: bold "></p>
                   <p class="card-text" th:text="'商品名称：' + ${commodity.name}"></p>
-                  <p th:text="'商品价格：' + ${commodity.price}"></p>
                   <p th:text="'商品简介：' + ${commodity.note}"></p>
                   <p th:text="'商品数量：' + ${commodity.count}"></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button th:id="${commodity.pid}"   name="addToShoppingCar" type="button" class="btn btn-sm btn-outline-secondary addToShoppingCar">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        加入购物车
+                        收藏
                       </button>
                       <button th:id="${commodity.pid}"  name="buyImmediately" type="button" class="btn btn-sm btn-outline-secondary buyImmediately">
                         <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                        立即购买
+                        购买
                       </button>
 
                     </div>
@@ -95,7 +159,6 @@
 
               </ul>
             </nav>
-
           </div>
         </div>
         <!--用于保存要连续显示的页数-->
@@ -110,31 +173,63 @@
   </div>
 </div>
 <!--模态框-->
-<div id="myModel">
-  <div class="modal fade emp-add-modal" tabindex="-1" role="dialog" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-body">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body" th:id="mymodel">
+  <div>
+    <div class="modal fade emp-add-modal" tabindex="-1" role="dialog" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-body container" style="border-radius: 20px;">
+          <div class="card mb-4 shadow-lg" style="width: 380px;border-radius: 20px;">
+            <div class="row">
+              <div class="col-sm-12 card-body col-sm-12" th:id="mymodel" style="">
 
-          </div>
-
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
+              </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
     </div>
-  </div>
+    <div>
+<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+      <div class="modal fade content-modal" id="content-modal" tabindex="-1" role="dialog" aria-labelledby="content-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="width: 800px;height: 600px;">
+            <h2 style="color: #34ce57">商品留言</h2>
+            <div class="modal-body">
+              <form class="form-horizontal add_content_form">
+                <div class="row" style="">
+                  <div  class="col-sm-5 card-body" th:id="commodityInfo" style=" height: 500px;background-color: white">
+
+                  </div>
+                  <div class="form-group" style="height: 500px;background-color: white">
+                    <label style="margin-top: 80px;font-weight: bold" for="content" class="col-sm-12 control-label">请在下方评论：</label>
+                    <div class="col-sm-8">
+                      <input type="hidden" name="commodityId" id="commodityId">
+                      <input type="textarea" onblur="validate_content(this)" name="content" class="form-control" id="content" placeholder="如：可以邮寄吗？" style="width: 400px;height: 240px">
+                      <span id="helpBlock_add_inputName" class="help-block"></span>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 50px">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">取消评论</button>
+                      <button type="button" class="btn btn-primary content_save_btn">确定评论</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 <script type="text/javascript"  th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript"  th:src="@{/asserts/js/popper.min.js}"></script>
 <script type="text/javascript"  th:src="@{/asserts/js/bootstrap.min.js}"></script>
 <!--引入自定义的js文件-->
 <script type="text/javascript" th:src = "@{/asserts/js/myjs.js}"></script>
-
+<script language = "javascript" th:src = "@{/asserts/js/validate_regist.js}"></script>
 <script>
     $(function () {
 
         //使用模态框
-        $(".modelimg").click(function () {
+        $(".commodityImg").click(function () {
             var temp = $(this).attr("id");
             $.ajax({
                 url:"/user/viewcommoditydetail/" + temp,
@@ -144,10 +239,11 @@
                     if (result != null){
                         var img;
                         if(result.photo != null){
-                            img = $("<img>").attr("src",'/images/'+ result.photo).attr("style","text-align: center");
+                            img = $("<img>").attr("src",'/images/'+ result.photo).attr("style","width:200px;height:200px;border-radius: 100px;").attr("class","modelImg");
                         }else {
-                            img = $("<img>").attr("src","/images/nophotos.jpg").attr("style","text-align: center");
+                            img = $("<img>").attr("src","/images/nophotos.jpg").attr("style","width:200px;height:200px;border-radius: 100px;").attr("class","modelImg");
                         }
+
                         $("#mymodel").append("<p></p>").append(img);
                         $("#mymodel").append("<p></p>").append("商品编号： " + result.pid);
                         $("#mymodel").append("<p></p>").append("商品名称： " + result.name);
@@ -156,10 +252,10 @@
                         $("#mymodel").append("<p></p>").append("商品发布者： " + result.authorId);
                         $("#mymodel").append("<p></p>").append("商品数量： " + result.count);
                         $("#mymodel").append("<p></p>").append("商品介绍： " + result.note);
-                        var div = $("<div></div>").attr("class","modal-footer");
+                       /* var div = $("<div></div>").attr("class","modal-footer");
                         var btn = $("<button>关闭</button>").attr("type","button").attr("class","btn btn-default").attr("data-dismiss","modal");
                         div.append(btn);
-                        $("#mymodel").append(div);
+                        $("#mymodel").append(div);*/
                     }
                 }
             });
@@ -170,8 +266,59 @@
         });
 
         $('.mymessage').click(function () {
-            var pid = $(this).attr("id");
-            window.location.href = "/user/message/" + pid;
+            /*var pid = $(this).attr("id");
+            window.location.href = "/user/message/" + pid;*/
+            var temp = $(this).attr("id");
+            $.ajax({
+                url:"/user/viewcommoditydetail/" + temp,
+                type:"GET",
+                success:function (result) {
+                    $("#content").val("");      //清空上一次的评论
+                    $("#commodityInfo").empty();
+                    if (result != null){
+
+                        var img;
+                        if(result.photo != null){
+                            img = $("<img>").attr("src",'/images/'+ result.photo).attr("style","width:200px;height:200px;border-radius: 100px;border-radius: 20px;").attr("class","modelImg");
+                        }else {
+                            img = $("<img>").attr("src","/images/nophotos.jpg").attr("style","width:200px;height:200px;border-radius: 100px;border-radius: 20px;").attr("class","modelImg");
+                        }
+                        $("#commodityInfo").append("<p></p>").append(img);
+                        //$("<p>" + "商品编号：" +  result.pid +"</p>").appendTo("#commodityInfo").attr("name","commodityId").attr("value",result.pid);
+                        $("#commodityInfo").append("<p></p>").append("商品编号： " + result.pid);
+                        $("#commodityInfo").append("<p></p>").append("商品名称： " + result.name);
+                        $("#commodityInfo").append("<p></p>").append("发布日期： " + result.date);
+                        $("#commodityInfo").append("<p></p>").append("商品价格： " + result.price);
+                        $("#commodityInfo").append("<p></p>").append("商品数量： " + result.count);
+                        $("#commodityInfo").append("<p></p>").append("商品介绍： " + result.note);
+                        $("#commodityId").attr("value",result.pid);
+                    }
+                }
+            });
+            $('.content-modal').modal({
+              backdrop:"static",
+                keyboard:true
+            });
+
+        });
+
+        //确认评论
+        $(".content_save_btn").click(function (){
+            $.ajax({
+                url:"/user/content",
+                type:"POST",
+                data:$(".add_content_form").serialize(),
+                success:function (result) {
+                    if(result == "true"){
+                        $('#content-modal').modal("hide");    //隐藏模态框
+                       alert("留言成功！");
+                    }else{
+                        $("#content").focus();
+                        alert("留言失败！");
+                    }
+                }
+
+            });
         });
 
         //引入解析分页条的函数，已成功抽取
@@ -213,5 +360,7 @@
         searchCommodity();
     });
 </script>
+</div>
+</div>
 </body>
 </html>
