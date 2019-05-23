@@ -59,6 +59,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("/main-index.html").setViewName("/adminPage/adminhome");
                 //设置管理员登录界面的中英文切换
                 registry.addViewController("/adminLogin.html").setViewName("adminLogin");
+                registry.addViewController("/test.html").setViewName("/moban908/index");
             }
 
 
@@ -77,11 +78,13 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                         .excludePathPatterns("/usr/switchToAdmin")
                         .excludePathPatterns("/usr/switchToUser")
                         .excludePathPatterns("/adminLogin.html")
+                        .excludePathPatterns("/user/viewcommoditydetail/**")
                         //放行图片静态资源（不进行拦截）
                         .excludePathPatterns("/images/**")
                         .excludePathPatterns("/adminPage/**")
                         //放行静态资源
                         .excludePathPatterns("/asserts/**","/webjars/**")
+                        .excludePathPatterns("/getAllCommodity","/searchByKey") //放行小程序要请求的资源
                         .excludePathPatterns("/regist/**");     //放行注册请求
             }
         };

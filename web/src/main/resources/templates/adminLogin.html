@@ -8,10 +8,27 @@
 		<title>管理员登录页面</title>
 		<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" href="asserts/css/bootstrap.min.css" rel="stylesheet">
 		<link  th:href="@{/asserts/css/signin.css}" href="asserts/css/signin.css" rel="stylesheet">
+		<style>
+			.mb-4{
+				vertical-align: middle;
+				justify-content: center;
+				align-items: center;
+				border-radius: 100px;
+			}
+			body{
+				background: url(/images/backimg4.jpg);
+			}
+			.btn.btn-lg.btn-primary.btn-block{
+				background-color: #28a745;
+			}
+			.checkbox.mb-3 a{
+				color: green;
+			}
+		</style>
 	</head>
 
-	<body class="text-center" style="background-color: #F2F2F2">
-		<form class="form-signin" th:action="@{/usr/adminLogin}" method="post">
+	<body class="text-center" style="">
+		<form class="form-signin" th:action="@{/usr/adminLogin}" method="post" style="border: solid 1px;background-color: #F2F2F2;width: 630px;height: 500px">
 			<!--使用thymeleaf引入地址：默认是在当前项目下-->
 			<img class="mb-4" th:src="@{/asserts/img/bootstrap-solid.jpg}" src="asserts/img/bootstrap-solid.svg" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
@@ -25,12 +42,12 @@
 				<label>
           <input type="checkbox" value="remember-me"> [[#{login.remember}]]
 					<label><a href="/usr/switchToUser">© [[#{login.roleUser}]]</a></label>
-        </label>
+       			</label>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
+				<!--<p class="mt-5 mb-3 text-muted"><a href="#">© 管理员登录</a></p>-->
+				<a class="btn btn-sm" th:href="@{/adminLogin.html(l='zh_CN')}">中文</a>
+				<a class="btn btn-sm" th:href="@{/adminLogin.html(l='en_US')}">English</a>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
-			<!--<p class="mt-5 mb-3 text-muted"><a href="#">© 管理员登录</a></p>-->
-			<a class="btn btn-sm" th:href="@{/adminLogin.html(l='zh_CN')}">中文</a>
-			<a class="btn btn-sm" th:href="@{/adminLogin.html(l='en_US')}">English</a>
 		</form>
 	</body>
 </html>

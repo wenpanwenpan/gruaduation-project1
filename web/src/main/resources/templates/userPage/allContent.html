@@ -76,7 +76,7 @@
 		<div id="myModel">
 			<div class="modal fade emp-add-modal" tabindex="-1" role="dialog" >
 				<div class="modal-dialog" role="document">
-					<div class="modal-body">
+					<div class="modal-body" style="width: 380px">
 						<div class="card mb-4 shadow-sm">
 							<div class="card-body" th:id="mymodel">
 
@@ -116,11 +116,6 @@
                                 $("#mymodel").append("<p></p>").append("商品发布者： " + result.authorId);
                                 $("#mymodel").append("<p></p>").append("商品数量： " + result.count);
                                 $("#mymodel").append("<p></p>").append("商品介绍： " + result.note);
-                                $("#mymodel").append("<p></p>");
-                            	var div = $("<div></div>").attr("class","modal-footer");
-                            	var btn = $("<button>关闭</button>").attr("type","button").attr("class","btn btn-default").attr("data-dismiss","modal");
-                            	div.append(btn);
-                                $("#mymodel").append(div);
                             }
                         }
                     });

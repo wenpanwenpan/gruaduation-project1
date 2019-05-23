@@ -14,6 +14,10 @@
     body{
       background: url(/images/backimg4.jpg)repeat;
     }
+    .commodityPhoto{
+      width: 250px;
+      height: 190px;
+    }
   </style>
 </head>
 
@@ -35,10 +39,10 @@
 
               <!--使用th标签的src属性拼接-->
               <span th:if="${commodity.photo != null }">
-                  <img th:src="@{'/images/'+${commodity.photo}}"/>
+                  <img class="commodityPhoto" th:src="@{'/images/'+${commodity.photo}}"/>
             </span>
               <span th:if="${commodity.photo == null }">
-                  <img th:src="@{/images/nophotos.jpg}"/>
+                  <img class="commodityPhoto" th:src="@{/images/nophotos.jpg}"/>
             </span>
 
               <div class="card-body">
@@ -68,7 +72,7 @@
 <script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
 <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
 <!--引入自定义的js文件-->
-<script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
+<script language = "javascript" th:src = "@{/asserts/js/validate_regist.js}"></script>
 <script th:inline="javascript" type="text/javascript">
     $(function () {
         var msg = [[${msg}]];

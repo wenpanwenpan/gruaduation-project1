@@ -194,8 +194,17 @@ public class ShoppingControllerExtend {
      * @throws Exception
      */
     @PostMapping(value = "/user/modifyMySellCommodity")
-    public String modityCommodityInfo(Commodity commodity) throws Exception {
+    public String modityCommodityInfo(Commodity commodity, @RequestParam("file") MultipartFile file) throws Exception {
 
+        String fileName = null;
+        //如果有照片更改
+        if(!file.isEmpty() && file.getSize() > 0){
+            //TODO 将文件写入到指定目录（具体开发中有可能是将文件写入到云存储/或者指定目录通过 Nginx
+            //进行 gzip 压缩和反向代理，此处只是为了演示故将地址写成本地电脑指定目录）
+            fileName = ipTimeStamp.getIPTimeRand() + ".jpg";     //重新生成图片名称，保证不重复
+            file.transferTo(new File("E:\\IDEAWorkSpace\\GraduationProject\\gruaduation-project1\\web\\src\\main\\resources\\static\\images\\" + fileName));
+        }
+        commodity.setPhoto(fileName);
         //更新用户上传商品的时间
         String dateFormat = UserUtils.dateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         commodity.setDate(dateFormat);

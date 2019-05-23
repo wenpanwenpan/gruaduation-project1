@@ -140,6 +140,36 @@ public class AdminController {
     }
 
     /**
+     * 管理员搜索用户信息
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/admin/ajax/searchUser/{keyword}")
+    public String adminSearchUser(@PathVariable("keyword") String keyword,
+                                  @RequestParam(defaultValue = "1") int pageNo,
+                                  @RequestParam(defaultValue = "10") int pageSize,
+                                  Model model){
+        PageHelper.startPage(pageNo, pageSize,true);
+        Page<Customer> customers = adminProductService.findUserByKeyWord(keyword);
+        PageInfo<Customer> page = new PageInfo<>(customers,5);
+        model.addAttribute("pageInfo",page);
+
+        return "/adminPage/manageAllUsers";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/admin/ajax/seachUser")
+    public String searchUserPre(@RequestParam("keyword") String keyword){
+        Page<Customer> customers = adminProductService.findUserByKeyWord(keyword);
+        if(customers != null){
+            return "true";
+        }
+        return "false";
+    }
+    /**
      * 管理员删除一个用户以及用户所有上传的商品  需要使用事务管理
      * @param uid
      * @return
@@ -211,15 +241,25 @@ public class AdminController {
     @GetMapping(value = "/admin/ajax/seachCommodity/{key}")
     public String seachCommodityJump(@PathVariable(value = "key") String key,
                                      @RequestParam(defaultValue = "1") int pageNo,
-                                     @RequestParam(defaultValue = "6") int pageSize,
+                                     @RequestParam(defaultValue = "10") int pageSize,
                                      Model model){
 
         PageHelper.startPage(pageNo, pageSize);
         Page<Commodity> commodities = productService.seachCommodity(key);
         PageInfo<Commodity> page = new PageInfo<>(commodities,5);
-        model.addAttribute("pageInfo",page);
+        HashMap<String,Customer> allCustomer = new HashMap<>();
 
-        return "/adminPage/myshopping";
+        //根据商品的id查询出商品的所属用户
+        for (int i = 0; i < commodities.size(); i++) {
+            Customer customer = userService.findCustomerById(Integer.parseInt(commodities.get(i).getAuthorId()));
+            //将用户名缓存到map集合中
+            allCustomer.put(customer.getUid() + "",customer);
+        }
+
+        model.addAttribute("pageInfo",page);
+        model.addAttribute("allCustomer",allCustomer);
+
+        return "/adminPage/manageUserCommodities";
     }
 
     /**
@@ -231,6 +271,18 @@ public class AdminController {
 
         System.out.println("收到电话查询请求！！！");
         return "/adminPage/telHome";
+    }
+
+    /**
+     * 管理商品类型
+     * @return
+     */
+    @GetMapping(value = "/admin/manageuser/manageType")
+    public String manageCommodityType(Model model){
+
+        List<CommodityType> list = productService.findAllCommodityType();
+        model.addAttribute("list",list);
+        return "/adminPage/addCommodityType";
     }
 
     /**

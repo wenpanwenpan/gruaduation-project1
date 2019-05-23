@@ -47,11 +47,21 @@ public class AdminProductService implements IProductService<Commodity,Integer> {
         return null;
     }
 
+    /**
+     * 模糊查询
+     * @param keyword
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Commodity> findAll(String keyword) throws Exception {
         return null;
     }
 
+    public Page<Customer> findUserByKeyWord(String keyword){
+        Page<Customer> customers = adminProductMapper.findUserByKeyWord(keyword);
+        return customers;
+    }
     /**
      * 管理所有用户出售的商品，查询得到所有商品
      * @return

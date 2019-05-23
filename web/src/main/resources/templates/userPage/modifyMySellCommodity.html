@@ -45,6 +45,43 @@
 			input{
 				vertical-align:middle;
 			}
+
+			.file {
+				position: relative;
+				display: inline-block;
+				background: #D0EEFF;
+				border: 1px solid #99D3F5;
+				border-radius: 4px;
+				padding: 4px 12px;
+				overflow: hidden;
+				color: #1E88C7;
+				text-decoration: none;
+				text-indent: 0;
+				line-height: 30px;
+				margin-left: -14px;
+			}
+			.file input {
+				position: absolute;
+				font-size: 150px;
+				right: 0;
+				top: 0;
+				opacity: 0;
+			}
+			.file:hover {
+				background: #AADFFD;
+				border-color: #78C3F3;
+				color: #004974;
+				text-decoration: none;
+			}
+			.custom-select.d-block.w-100{
+				margin-left: -12px;
+				width: 200px;
+			}
+
+			.col-md-5.mb-3.myfile{
+				margin-left: -12px;
+			}
+
 		</style>
 	</head>
 
@@ -59,7 +96,7 @@
 					<br><br><br>
 					<h2 align="center"><span style="color: #0b2e13">商品信息</span></h3></h2>
 					<div style="text-align: center;">
-						<form method="post" action="/user/modifyMySellCommodity" class="form-horizontal validate">
+						<form method="post" action="/user/modifyMySellCommodity" class="form-horizontal validate" enctype="multipart/form-data">
 							<table class="table table-striped table-sm" style="text-align: center;width: 650px;margin:auto;" >
 								<tbody th:if="${commodity != null}">
 								<tr>
@@ -71,7 +108,7 @@
 									<td><input type="text" style="width:200px;" maxlength="11" th:value="${commodity.price}" class="form-control" name="price" required="" autofocus=""></td>
 								</tr>
 								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">出售数量</span>：</td>
+									<td><span style="color: #34ce57;font-weight: bolder">出售数量:</span></td>
 									<td><input type="text" style="width:200px;" th:value="${commodity.count}"class="form-control" name="count" required="" autofocus=""></td>
 								</tr>
 								<tr>
@@ -82,9 +119,20 @@
 									<td><span style="color: #34ce57;font-weight: bolder">商品类别：</span></td>
 									<td>
 										<div class="col-md-5 mb-3" >
-											<select style="width:140px;" th:name="tid" class="custom-select d-block w-100">
+											<select th:name="tid" class="custom-select d-block w-100" style="width: 300px">
 												<option th:each="type:${allCommodityType}" class="dropdown-item" th:selected="${type.id}==${commodity.tid}"  th:value="${type.id}" th:text="${type.typeName}" th:name="tid"></option>
 											</select>
+										</div>
+									</td>
+
+								</tr>
+								<tr>
+									<td><label style="color: #34ce57;font-weight: bolder">    商品图片：</label></td>
+									<td>
+										<div class="col-md-5 mb-3 myfile">
+											<a class="file" href="#">
+												<input type="file"  name="file" id = "file">点击这里上传文件
+											</a>
 										</div>
 									</td>
 								</tr>

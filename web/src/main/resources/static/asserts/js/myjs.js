@@ -255,6 +255,33 @@ function adminSearchCommodity() {
             }
         });
     });
+};
+
+//========================================================================================================
+//管理员搜索用户信息
+function adminSearchUser() {
+
+    $('#seachCommodity').blur(function () {
+
+        var keyword = $(this).val();
+        $.ajax({
+            url : "/admin/ajax/seachUser", //路径
+            type : "POST",            //提交方式
+            data : {
+                "keyword" : keyword
+            },                        //数据，这里使用的是Json格式进行传输
+            success : function(result) {//返回数据根据结果进行相应的处理
+                if ( result == "true" ) {
+                    if(keyword != null && "" != keyword){
+                        window.location.href = "/admin/ajax/searchUser/" + keyword;
+                    }
+                } else {
+                    alert("没有该用户");
+                }
+            }
+        });
+
+    });
 }
 
 

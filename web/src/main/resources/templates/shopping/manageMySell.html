@@ -15,6 +15,19 @@
 
   <!-- Custom styles for this template -->
   <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <style>
+    .commodityImg{
+      width: 250px;
+      height: 200px;
+    }
+    .card.mb-4.shadow-sm {
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      width: 100%;
+    }
+  </style>
 
 </head>
 
@@ -58,7 +71,7 @@
               <div class="card mb-4 shadow-sm">
                 <!--使用th标签的src属性拼接-->
                 <span th:if="${commodity.photo != null }">
-                  <img th:src="@{'/images/'+${commodity.photo}}"/>
+                  <img class="commodityImg" th:src="@{'/images/'+${commodity.photo}}"/>
                 </span>
                 <span th:if="${commodity.photo == null }">
                   <img th:src="@{/images/nophotos.jpg}"/>

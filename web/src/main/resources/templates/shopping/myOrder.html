@@ -9,6 +9,15 @@
 		<title>我的订单</title>
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<style>
+			td p{
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: 300px;
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
         <!--引入topbar！！！-->
@@ -36,12 +45,12 @@
 								<td th:text="${commodity.current.value.name}"></td>
 								<td th:text="${commodity.current.value.price}"></td>
 								<td th:text="${counts[commodity.current.key]}"></td>
-								<td th:text="${commodity.current.value.note}"></td>
+								<td style="text-align: center"><p th:text="${commodity.current.value.note}"></p></td>
 							</tr>
 							</tbody>
 						</table>
 						<div style="text-align: center" th:if="${commodityMap.size() == 0}">
-							<img th:src="@{/images/shoppingCarNull.jpg}" >
+							<img style="width: 100%;border-radius: 20px;" th:src="@{/images/shoppingCarNull.jpg}" >
 						</div>
 					</div>
 					<div style="text-align: center" th:if="${commodityMap.size() != 0}">

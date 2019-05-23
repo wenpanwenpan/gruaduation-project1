@@ -11,6 +11,12 @@
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
 		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 	</head>
+	<style>
+		.minImg{
+			width: 40px;
+			height: 30px;
+		}
+	</style>
 	<body>
         <!--引入topbar！！！-->
         <div th:replace="~{commons/bar::topbar}"></div>
@@ -27,6 +33,7 @@
 							<tr>
 								<th><input type="checkbox" id="check_all"> 全选</th>
 								<th>#序号</th>
+								<th>商品图片</th>
 								<th>商品名称</th>
 								<th>商品价格</th>
 								<th>商品数量</th>
@@ -39,6 +46,10 @@
 							<tr th:each="count,commodity:${allCommotity}">
 								<td><input th:id="${commodity.current.key}" th:name="${cars[commodity.current.key]}" type="checkbox" class="check_item"></td>
 								<td th:text="${commodity.index} + 1"></td>
+								<td>
+									<img class="minImg" th:if="${commodity.current.value.photo != null}" th:src="@{'/images/'+${commodity.current.value.photo}}"/>
+									<img class="minImg" th:if="${commodity.current.value.photo == null}" th:src="@{'/images/nophotos.jpg'}"/>
+								</td>
 								<td th:text="${commodity.current.value.name}"></td>
 								<td th:text="${commodity.current.value.price}"></td>
 								<td class="myclass"><input id = "1"type="text" maxlength="2" size="3" th:value="${cars[commodity.current.key]}"></td>
@@ -55,7 +66,7 @@
 								</td>
 							</tr>
 							<tr th:if="${allCommotity != null && allCommotity.size() != 0}">
-								<td colspan="6" th:text="'总计：' + ${sumCount} + '件商品， ' + '共计： ￥' + ${sumPrice} + '元！'"></td>
+								<td colspan="7" th:text="'总计：' + ${sumCount} + '件商品， ' + '共计： ￥' + ${sumPrice} + '元！'"></td>
 								<td>
 									<a id="orderbtn" href="#">
 									<button class="btn btn-sm btn-outline-secondary">
@@ -67,7 +78,7 @@
 							</tr>
 							</tbody>
 						</table>
-						<img th:if="${allCommotity == null || allCommotity.size() == 0}" th:src="@{/images/shoppingCarNull.jpg}">
+						<img style="width: 100%;border-radius: 20px;" th:if="${allCommotity == null || allCommotity.size() == 0}" th:src="@{/images/shoppingCarNull.jpg}">
 					</div>
 					
 				</main>

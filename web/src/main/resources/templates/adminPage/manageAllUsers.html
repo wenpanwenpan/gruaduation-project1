@@ -45,7 +45,7 @@
 								<td th:text="${customer.zipCode}"></td>
 								<td>
 									<button th:id="${customer.uid}" type="button" class="btn btn-sm btn-outline-secondary viewUserSells">
-										<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
+										<span class="glyphicon glyphicon-eye-open" aria-hidden="true" ></span>
 										查看出售
 									</button>
 									<button th:id="${customer.uid}" type="button" class="btn btn-sm btn-outline-secondary removeUser">
@@ -90,7 +90,7 @@
                 parsingPaginatioBarForManageAllUser();
 
                 //搜索商品
-                adminSearchCommodity();
+                adminSearchUser();
 
                 //删除一个用户
                 $('.btn.btn-sm.btn-outline-secondary.removeUser').click(function () {

@@ -84,7 +84,7 @@ public class ShoppingController {
     @GetMapping(value = "/usr/ajax/seachCommodity/{key}")
     public String seachCommodityJump(@PathVariable(value = "key") String key,
                                      @RequestParam(defaultValue = "1") int pageNo,
-                                     @RequestParam(defaultValue = "6") int pageSize,
+                                     @RequestParam(defaultValue = "8") int pageSize,
                                      Model model){
 
         PageHelper.startPage(pageNo, pageSize);
@@ -98,7 +98,7 @@ public class ShoppingController {
     //分页显示商品
     @GetMapping("/shopping/goshoppingbypage")
     public String getCommoditiesByPage(@RequestParam(defaultValue = "1") int pageNo,
-                                       @RequestParam(defaultValue = "6") int pageSize,
+                                       @RequestParam(defaultValue = "8") int pageSize,
                                        Model model,
                                        HttpSession session) throws Exception {
         PageHelper.startPage(pageNo, pageSize,true);

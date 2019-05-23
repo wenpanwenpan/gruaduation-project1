@@ -6,11 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>管理我的出售</title>
+  <title>管理用户出售</title>
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
   <link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
   <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-
+  <style>
+    .commodityImg{
+      width: 250px;
+      height: 200px;
+    }
+    .card.mb-4.shadow-sm {
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      width: 100%;
+    }
+    .card-body p{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+  </style>
 </head>
 
 <body>
@@ -54,7 +72,7 @@
               <div class="card mb-4 shadow-sm">
                 <!--使用th标签的src属性拼接-->
                 <span th:if="${commodity.photo != null }">
-                  <img th:src="@{'/images/'+${commodity.photo}}"/>
+                  <img class="commodityImg" th:src="@{'/images/'+${commodity.photo}}"/>
                 </span>
                 <span th:if="${commodity.photo == null }">
                   <img th:src="@{/images/nophotos.jpg}"/>

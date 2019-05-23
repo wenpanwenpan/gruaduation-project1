@@ -33,7 +33,7 @@
                             主页 <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a class="nav-link" th:href="@{/shopping/goshoppingbypage}" th:class="${activeUri == 'myshopping.html'?'nav-link active':'nav-link'}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
                                 <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -61,7 +61,7 @@
                             </svg>
                             我的订单
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a th:class="${activeUri == 'analysisResult.html'?'nav-link active':'nav-link'}" href="/usr/analysis">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
@@ -111,6 +111,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/admin/manageuser/manageType"
+                           th:class="${activeUri=='addCommodityType.html'?'nav-link active':'nav-link'}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            类型管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/user/aboutUs" th:class="${activeUri == 'aboutUs.html'?'nav-link active':'nav-link'}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -122,7 +135,7 @@
                              关于我们
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="/admin/telHomePre" th:class="${activeUri == 'telHome.html'?'nav-link active':'nav-link'}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -133,7 +146,7 @@
                             </svg>
                             归属地查询
                         </a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </nav>

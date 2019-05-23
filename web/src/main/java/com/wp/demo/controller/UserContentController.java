@@ -64,24 +64,31 @@ public class UserContentController {
      * 处理用户留言请求
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "/user/content")
     public String dealContent(Content content,HttpSession session,Model model) throws Exception {
 
-        Customer customer = getCustomer(session);
+        boolean flag = false;
         Commodity commodity = productService.findById(content.getCommodityId());
-        content.setUserId(customer.getUid());
-        content.setUpdateTime(UserUtils.dateFormat("yyyy-MM-dd"));
-        content.setSellerId(Integer.parseInt(commodity.getAuthorId()));
-        boolean flag = userContentService.doCreate(content);
+
+        if(content.getContent() != null && !"".equals(content.getContent())){
+            Customer customer = getCustomer(session);
+            content.setUserId(customer.getUid());
+            content.setUpdateTime(UserUtils.dateFormat("yyyy-MM-dd"));
+            content.setSellerId(Integer.parseInt(commodity.getAuthorId()));
+            flag = userContentService.doCreate(content);
+        }
+        model.addAttribute("commodity",commodity);
 
         if(flag){
             model.addAttribute("msg","恭喜您，评论成功！");
         }else {
             model.addAttribute("msg","评论失败，稍后再试！");
+            return "false";
         }
-        model.addAttribute("commodity",commodity);
+
         //留言成功返回结果
-        return "/userPage/message";
+        return "true";
     }
 
     /**
@@ -119,6 +126,7 @@ public class UserContentController {
     public Commodity viewCommodityDetail(@PathVariable("pid") Integer pid) throws Exception {
 
         Commodity commodity = productService.findById(pid);
+
         return commodity;
     }
 

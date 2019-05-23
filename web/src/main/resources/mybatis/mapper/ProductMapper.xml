@@ -20,6 +20,9 @@
    <update id="doUpdate" parameterType="com.wp.demo.bean.Commodity">
       UPDATE commodity
       <set>
+         <if test="photo != null">
+            photo = #{photo},
+         </if>
          <if test="name != null">
             name = #{name},
          </if>
@@ -38,6 +41,7 @@
          <if test="count != null">
             count = #{count}
          </if>
+
       </set>
     WHERE pid = #{pid}
    </update>

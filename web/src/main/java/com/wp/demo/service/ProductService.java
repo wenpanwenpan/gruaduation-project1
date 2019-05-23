@@ -76,7 +76,12 @@ public class ProductService implements IProductService<Commodity,Integer>{
 
     @Override
     public List<Commodity> findAll(String keyword) throws Exception {
-        return null;
+        List<Commodity> allCommodity = productMapper.getAllCommodity();
+
+        System.out.println("查询集合大小： " + allCommodity.size());
+
+
+        return allCommodity;
     }
 
     /**

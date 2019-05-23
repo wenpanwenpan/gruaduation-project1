@@ -7,6 +7,7 @@ import com.wp.demo.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,7 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
 
+        System.out.println("收到登录请求");
         Customer customer = userLoginService.getUserLoginByAccount(username, password);
 
         if(customer != null){
@@ -94,4 +96,5 @@ public class LoginController {
 
         return "login";
     }
+
 }
